@@ -1,5 +1,7 @@
 # Android 13 for Qualcomm MSM8909/MSM8916/MSM8939 devices based on the GloDroid project
 
+## This fork specifically focuses on MSM8909 Devices such as the LG Wine Smart (2015), Sharp Aquos Keitai 3 and the Kyocera Digno 3 902/903kc. 
+
 [![GloDroid](https://img.shields.io/badge/GLODROID-PROJECT-blue)](https://github.com/GloDroid/glodroid_manifest)
 [![ProjectStatus](https://img.shields.io/badge/PROJECT-STATUS-yellowgreen)](https://github.com/GloDroidCommunity/qcom-msm8916-series/issues/1)
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
