@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<audioPolicyConfiguration version="7.0" xmlns:xi="http://www.w3.org/2001/XInclude">
+
+    <globalConfiguration speaker_drc_enabled="true"/>
+
+    <modules>
+        <!-- Primary Audio HAL Module -->
+        <module name="primary" halVersion="2.0">
+            <attachedDevices>
+                <item>AUDIO_DEVICE_OUT_EARPIECE</item>
+                <item>AUDIO_DEVICE_OUT_SPEAKER</item>
+                <item>AUDIO_DEVICE_OUT_TELEPHONY_TX</item>
+                <item>AUDIO_DEVICE_IN_BUILTIN_MIC</item>
+                <item>AUDIO_DEVICE_IN_BACK_MIC</item>
+                <item>AUDIO_DEVICE_IN_REMOTE_SUBMIX</item>
+                <item>AUDIO_DEVICE_IN_FM_RX</item>
+                <item>AUDIO_DEVICE_IN_FM_RX_A2DP</item>
+                <item>AUDIO_DEVICE_IN_VOICE_CALL</item>
+                <item>AUDIO_DEVICE_IN_TELEPHONY_RX</item>
+            </attachedDevices>
+            <defaultOutputDevice>AUDIO_DEVICE_OUT_SPEAKER</defaultOutputDevice>
+
+            <mixPorts>
+                <!-- Outputs -->
+                <mixPort name="primary" role="source" flags="AUDIO_OUTPUT_FLAG_PRIMARY">
+                    <profile format="AUDIO_FORMAT_PCM_16_BIT"
+                             samplingRates="44100 48000"
+                             channelMasks="AUDIO_CHANNEL_OUT_STEREO"/>
+                </mixPort>
+                <mixPort name="low_latency" role="source" flags="AUDIO_OUTPUT_FLAG_FAST">
+                    <profile format="AUDIO_FORMAT_PCM_16_BIT"
+                             samplingRates="44100 48000"
+                             channelMasks="AUDIO_CHANNEL_OUT_STEREO"/>
+                </mixPort>
+                <mixPort name="multichannel" role="source" flags="AUDIO_OUTPUT_FLAG_DIRECT">
+                    <profile format="AUDIO_FORMAT_PCM_16_BIT"
+                             samplingRates="44100 48000"
+                             channelMasks="AUDIO_CHANNEL_OUT_5POINT1 AUDIO_CHANNEL_OUT_7POINT1"/>
+                </mixPort>
+                <mixPort name="compress_offload" role="source" flags="AUDIO_OUTPUT_FLAG_DIRECT|AUDIO_OUTPUT_FLAG_COMPRESS_OFFLOAD|AUDIO_OUTPUT_FLAG_NON_BLOCKING">
+                    <profile format="AUDIO_FORMAT_MP3 AUDIO_FORMAT_AC3 AUDIO_FORMAT_E_AC3 AUDIO_FORMAT_AAC AUDIO_FORMAT_AAC_LC AUDIO_FORMAT_AAC_HE_V1 AUDIO_FORMAT_AAC_HE_V2"
+                             samplingRates="8000 11025 12000 16000 22050 24000 32000 44100 48000"
+                             channelMasks="AUDIO_CHANNEL_OUT_STEREO"/>
+                </mixPort>
+                <mixPort name="incall_music" role="source" flags="AUDIO_OUTPUT_FLAG_DIRECT|AUDIO_OUTPUT_FLAG_INCALL_MUSIC">
+                    <profile format="AUDIO_FORMAT_PCM_16_BIT"
+                             samplingRates="8000 16000 48000"
+                             channelMasks="AUDIO_CHANNEL_OUT_MONO"/>
+                </mixPort>
+                <mixPort name="voice_tx" role="source">
+                    <profile format="AUDIO_FORMAT_PCM_16_BIT"
+                             samplingRates="8000 16000 48000"
+                             channelMasks="AUDIO_CHANNEL_OUT_MONO AUDIO_CHANNEL_OUT_STEREO"/>
+                </mixPort>
+                <mixPort name="voip_rx" role="source" flags="AUDIO_OUTPUT_FLAG_DIRECT|AUDIO_OUTPUT_FLAG_VOIP_RX">
+                    <profile format="AUDIO_FORMAT_PCM_16_BIT AUDIO_FORMAT_AMR_NB AUDIO_FORMAT_AMR_WB AUDIO_FORMAT_QCELP AUDIO_FORMAT_EVRC AUDIO_FORMAT_EVRCB AUDIO_FORMAT_EVRCWB AUDIO_FORMAT_EVRCNW"
+                             samplingRates="8000 16000"
+                             channelMasks="AUDIO_CHANNEL_OUT_MONO"/>
+                </mixPort>
+
+                <!-- Inputs -->
+                <mixPort name="primary input" role="sink">
+                    <profile format="AUDIO_FORMAT_PCM_16_BIT AUDIO_FORMAT_AMR_NB AUDIO_FORMAT_AMR_WB AUDIO_FORMAT_QCELP AUDIO_FORMAT_EVRC AUDIO_FORMAT_EVRCB AUDIO_FORMAT_EVRCWB AUDIO_FORMAT_EVRCNW"
+                             samplingRates="8000 11025 12000 16000 22050 24000 32000 44100 48000"
+                             channelMasks="AUDIO_CHANNEL_IN_MONO AUDIO_CHANNEL_IN_STEREO AUDIO_CHANNEL_IN_5POINT1 AUDIO_CHANNEL_IN_FRONT_BACK"/>
+                </mixPort>
+                <mixPort name="voice_rx input" role="sink">
+                    <profile format="AUDIO_FORMAT_PCM_16_BIT"
+                             samplingRates="8000 16000 48000"
+                             channelMasks="AUDIO_CHANNEL_IN_MONO AUDIO_CHANNEL_IN_STEREO"/>
+                </mixPort>
+            </mixPorts>
+
+            <devicePorts>
+                <!-- Add ports for all output/input devices listed above -->
+                <devicePort tagName="Earpiece" type="AUDIO_DEVICE_OUT_EARPIECE" role="sink"/>
+                <devicePort tagName="Speaker" type="AUDIO_DEVICE_OUT_SPEAKER" role="sink"/>
+                <devicePort tagName="Telephony TX" type="AUDIO_DEVICE_OUT_TELEPHONY_TX" role="sink"/>
+
+                <devicePort tagName="Built-In Mic" type="AUDIO_DEVICE_IN_BUILTIN_MIC" role="source"/>
+                <devicePort tagName="Back Mic" type="AUDIO_DEVICE_IN_BACK_MIC" role="source"/>
+                <devicePort tagName="Submix In" type="AUDIO_DEVICE_IN_REMOTE_SUBMIX" role="source"/>
+                <devicePort tagName="FM RX" type="AUDIO_DEVICE_IN_FM_RX" role="source"/>
+                <devicePort tagName="FM RX A2DP" type="AUDIO_DEVICE_IN_FM_RX_A2DP" role="source"/>
+                <devicePort tagName="Voice Call" type="AUDIO_DEVICE_IN_VOICE_CALL" role="source"/>
+                <devicePort tagName="Telephony RX" type="AUDIO_DEVICE_IN_TELEPHONY_RX" role="source"/>
+            </devicePorts>
+
+            <routes>
+                <!-- You can expand this depending on your routing logic -->
+                <route type="mix" sink="Earpiece" sources="primary"/>
+                <route type="mix" sink="Speaker" sources="primary low_latency"/>
+                <route type="mix" sink="Telephony TX" sources="voice_tx"/>
+                <route type="mix" sink="primary input" sources="Built-In Mic Back Mic"/>
+                <route type="mix" sink="voice_rx input" sources="Telephony RX"/>
+            </routes>
+        </module>
+
+        <!-- A2DP Module -->
+        <module name="a2dp" halVersion="3.0">
+            <mixPorts>
+                <mixPort name="a2dp" role="source">
+                    <profile format="AUDIO_FORMAT_PCM_16_BIT"
+                             samplingRates="44100"
+                             channelMasks="AUDIO_CHANNEL_OUT_STEREO"/>
+                </mixPort>
+                <mixPort name="a2dp input" role="sink">
+                    <profile format="AUDIO_FORMAT_PCM_16_BIT"
+                             samplingRates="44100 48000"
+                             channelMasks="AUDIO_CHANNEL_IN_MONO AUDIO_CHANNEL_IN_STEREO AUDIO_CHANNEL_IN_5POINT1 AUDIO_CHANNEL_IN_VOICE_CALL_MONO AUDIO_CHANNEL_IN_VOICE_DNLINK_MONO AUDIO_CHANNEL_IN_VOICE_UPLINK_MONO"/>
+                </mixPort>
+            </mixPorts>
+            <devicePorts>
+                <devicePort tagName="A2DP Out" type="AUDIO_DEVICE_OUT_ALL_A2DP" role="sink"/>
+                <devicePort tagName="A2DP In" type="AUDIO_DEVICE_IN_BLUETOOTH_A2DP" role="source"/>
+            </devicePorts>
+            <routes>
+                <route type="mix" sink="A2DP Out" sources="a2dp"/>
+                <route type="mix" sink="a2dp input" sources="A2DP In"/>
+            </routes>
+        </module>
+
+        <!-- USB Module -->
+        <module name="usb" halVersion="3.0">
+            <mixPorts>
+                <mixPort name="usb_accessory" role="source">
+                    <profile format="AUDIO_FORMAT_PCM_16_BIT"
+                             samplingRates="44100"
+                             channelMasks="AUDIO_CHANNEL_OUT_STEREO"/>
+                </mixPort>
+                <mixPort name="usb_device" role="source">
+                    <profile format="dynamic" samplingRates="dynamic" channelMasks="dynamic"/>
+                </mixPort>
+                <mixPort name="usb_input" role="sink">
+                    <profile format="AUDIO_FORMAT_PCM_16_BIT"
+                             samplingRates="dynamic"
+                             channelMasks="AUDIO_CHANNEL_IN_STEREO"/>
+                </mixPort>
+            </mixPorts>
+            <devicePorts>
+                <devicePort tagName="USB Accessory" type="AUDIO_DEVICE_OUT_USB_ACCESSORY" role="sink"/>
+                <devicePort tagName="USB Device Out" type="AUDIO_DEVICE_OUT_USB_DEVICE" role="sink"/>
+                <devicePort tagName="USB Device In" type="AUDIO_DEVICE_IN_USB_DEVICE" role="source"/>
+            </devicePorts>
+            <routes>
+                <route type="mix" sink="USB Accessory" sources="usb_accessory"/>
+                <route type="mix" sink="USB Device Out" sources="usb_device"/>
+                <route type="mix" sink="usb_input" sources="USB Device In"/>
+            </routes>
+        </module>
+
+        <!-- Remote Submix -->
+        <module name="r_submix" halVersion="3.0">
+            <mixPorts>
+                <mixPort name="submix" role="source">
+                    <profile format="AUDIO_FORMAT_PCM_16_BIT"
+                             samplingRates="48000"
+                             channelMasks="AUDIO_CHANNEL_OUT_STEREO"/>
+                </mixPort>
+                <mixPort name="submix input" role="sink">
+                    <profile format="AUDIO_FORMAT_PCM_16_BIT"
+                             samplingRates="48000"
+                             channelMasks="AUDIO_CHANNEL_IN_STEREO"/>
+                </mixPort>
+            </mixPorts>
+            <devicePorts>
+                <devicePort tagName="Submix Out" type="AUDIO_DEVICE_OUT_REMOTE_SUBMIX" role="sink"/>
+                <devicePort tagName="Submix In" type="AUDIO_DEVICE_IN_REMOTE_SUBMIX" role="source"/>
+            </devicePorts>
+            <routes>
+                <route type="mix" sink="Submix Out" sources="submix"/>
+                <route type="mix" sink="submix input" sources="Submix In"/>
+            </routes>
+        </module>
+
+        <!-- Optional: FM or custom modules could be added here -->
+    </modules>
+
+    <xi:include href="audio_policy_volumes.xml"/>
+    <xi:include href="default_volume_tables.xml"/>
+</audioPolicyConfiguration>
+
