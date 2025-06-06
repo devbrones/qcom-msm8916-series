@@ -22,6 +22,10 @@ If your device appears in those wiki pages with `Mainline Y`, adding support for
 | Alcatel OneTouch Idol 3 4.7" (6039\*) | idol347 | MSM8916 | [AndroidFileHost](https://androidfilehost.com/?w=files&flid=339479) | [XDA thread](https://forum.xda-developers.com/t/rom-aosp-lineageos-for-idol3-idol347-with-close-to-mainline-kernel.4533061/) | [pmOS wiki](https://wiki.postmarketos.org/wiki/Alcatel_Idol_3_4.7%22_(alcatel-idol347)) |
 | Alcatel OneTouch Idol 3 5.5" (6045\*) | idol3 | MSM8939 | [AndroidFileHost](https://androidfilehost.com/?w=files&flid=339480) | [XDA thread](https://forum.xda-developers.com/t/rom-aosp-lineageos-for-idol3-idol347-with-close-to-mainline-kernel.4533061/) | [pmOS wiki](https://wiki.postmarketos.org/wiki/Alcatel_Idol_3_5.5%22_(alcatel-idol3)) |
 | Huawei Honor 5X | kiwi | MSM8939v2 | [AndroidFileHost](https://www.androidfilehost.com/?w=files&flid=339802) | | [pmOS wiki](https://wiki.postmarketos.org/wiki/Huawei_Honor_5X/GR5_(2016)_(huawei-kiwi)) |
+| LG Wine Smart | cf | MSM8909 | N/A | N/A | Still in early development |
+| Sharp Aquos Keitai 3 | SH03L | MSM8909 | N/A | N/A | Not in development |
+| Kyocera Digno 3 902kc | 902KC | MSM8909 | N/A | N/A | Not in development |
+| Kyocera Digno 3 903kc | 903KC | MSM8909 | N/A | N/A | Not in development |
 
 ## Flashing
 
